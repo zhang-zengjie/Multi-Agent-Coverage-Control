@@ -8,6 +8,8 @@
 addpath('./commons');
 addpath('./rgb_hsl');
 
+t_scale = simConfig.dt:simConfig.dt:simTime;
+
 CostColor = [0, 51, 153]/255;
 CostColor_milky = [204, 221, 255]/255;
 
@@ -34,8 +36,8 @@ Pcolor_milky = hsl2rgb(Pcolor_milky_hsl);
 figure(1);
 
 hold on;
-plot(simConfig.t_scale, botCost,'LineWidth',1.5,'LineStyle','-.','Color', CostColor);
-fill([simConfig.t_scale, simConfig.T,0], [botCost,0,0], CostColor_milky);
+plot(t_scale, botCost,'LineWidth',1.5,'LineStyle','-.','Color', CostColor);
+fill([t_scale, simTime,0], [botCost,0,0], CostColor_milky);
 ylabel('$V(\mathcal{Z})$','Interpreter','latex', 'FontSize', 9);
 grid on;
 set(gca,'GridLineStyle','-.', 'FontSize', 9);
@@ -54,7 +56,7 @@ figure(2);
 
 hold on;
 for i = 1:nAgent
-    plot(simConfig.t_scale, botInput(i,:)-simConfig.agentWOrbit(i),'LineWidth',1.5,'LineStyle','-.','Color', Pcolor(i,:));
+    plot(t_scale, botInput(i,:)-simConfig.agentWOrbit(i),'LineWidth',1.5,'LineStyle','-.','Color', Pcolor(i,:));
 end
 ylabel('{\boldmath{$u$}}$_k(t) - ${\boldmath{$\omega$}}$_0$','Interpreter','latex', 'FontSize', 9);
 grid on;
@@ -74,10 +76,10 @@ figure(3);
 
 hold on;
 
-[v, c]= Function_VoronoiBounded(botZ(:, 1, end), botZ(:, 2, end), regionConfig.bndVertexes);
-c = outlierVertexList(v, c, [0 regionConfig.maxX], [0 regionConfig.maxY]);
+[v, c]= Function_VoronoiBounded(botZ(:, 1, end), botZ(:, 2, end), simConfig.bndVertexes);
+c = outlierVertexList(v, c, [0 regionMaxX], [0 regionMaxY]);
 
-line(regionConfig.bndVertexes(:,1), regionConfig.bndVertexes(:,2), 'LineWidth',1.5,'LineStyle','-.','Color', [0,0,0]);
+line(simConfig.bndVertexes(:,1), simConfig.bndVertexes(:,2), 'LineWidth',1.5,'LineStyle','-.','Color', [0,0,0]);
 for i = 1:nAgent
     line(v(c{i},1), v(c{i},2), 'LineWidth',1.5,'LineStyle',':','Color', [0,0,0]);
     fill(v(c{i},1), v(c{i},2), Pcolor_milky(i,:));
@@ -90,8 +92,8 @@ for i = 1:nAgent
     botPoseX = reshape(botPose(i, 1, 1), [1, 1]);
     botPoseY = reshape(botPose(i, 2, 1), [1, 1]);
     plot(botPoseX, botPoseY,'x','LineWidth',1,'MarkerSize',10, 'Color', Pcolor(i,:));
-    botPoseX = reshape(botPose(i, 1, :), [1, simConfig.maxIter]);
-    botPoseY = reshape(botPose(i, 2, :), [1, simConfig.maxIter]);
+    botPoseX = reshape(botPose(i, 1, :), [1, maxIter]);
+    botPoseY = reshape(botPose(i, 2, :), [1, maxIter]);
     plot(botPoseX, botPoseY,'LineWidth',1,'LineStyle','-', 'Color', Pcolor(i,:));
     botPoseX = reshape(botPose(i, 1, end), [1, 1]);
     botPoseY = reshape(botPose(i, 2, end), [1, 1]);
@@ -100,8 +102,8 @@ for i = 1:nAgent
     botZX = reshape(botZ(i, 1, 1), [1, 1]);
     botZY = reshape(botZ(i, 2, 1), [1, 1]);
     plot(botZX, botZY,'x', 'LineWidth',2,'MarkerSize',10, 'Color', Pcolor_dark(i,:));
-    botZX = reshape(botZ(i, 1, :), [1, simConfig.maxIter]);
-    botZY = reshape(botZ(i, 2, :), [1, simConfig.maxIter]);
+    botZX = reshape(botZ(i, 1, :), [1, maxIter]);
+    botZY = reshape(botZ(i, 2, :), [1, maxIter]);
     plot(botZX, botZY, 'LineWidth',2,'LineStyle',':', 'Color', Pcolor_dark(i,:));
     botZX = reshape(botZ(i, 1, end), [1, 1]);
     botZY = reshape(botZ(i, 2, end), [1, 1]);
@@ -110,15 +112,15 @@ for i = 1:nAgent
     botCzX = reshape(botCz(i, 1, 1), [1, 1]);
     botCzY = reshape(botCz(i, 2, 1), [1, 1]);
     plot(botCzX, botCzY,'x', 'LineWidth',2,'MarkerSize',10, 'Color', Pcolor_dark_2(i,:));
-    botCzX = reshape(botCz(i, 1, :), [1, simConfig.maxIter]);
-    botCzY = reshape(botCz(i, 2, :), [1, simConfig.maxIter]);
+    botCzX = reshape(botCz(i, 1, :), [1, maxIter]);
+    botCzY = reshape(botCz(i, 2, :), [1, maxIter]);
     plot(botCzX, botCzY, 'LineWidth',2, 'LineStyle','-.', 'Color', Pcolor_dark_2(i,:));
     botCzX = reshape(botCz(i, 1, end), [1, 1]);
     botCzY = reshape(botCz(i, 2, end), [1, 1]);
     plot(botCzX, botCzY,'o', 'LineWidth',2,'MarkerSize',10, 'Color', Pcolor_dark_2(i,:));
 %    color = get(H, 'Color');
 end
-axis([0,regionConfig.maxX,0,regionConfig.maxY]);
+axis([0,regionMaxX,0,regionMaxY]);
 
 
 
