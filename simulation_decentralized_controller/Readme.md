@@ -21,7 +21,7 @@ Logger.plot_VM_trajectories()
 
 User can implement a child class of Logger to clarify how they want to adjust the figures, e.g., LineWdith, Boudary Lines, etc.
 
-## License
+#### License
 
 MIT
 
