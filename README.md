@@ -1,16 +1,14 @@
 # Optimal Constrained Control of a Multi-Unicycle System
-Folder Structure:
 
+#### Folder Structure:
 
-# Execute
-1) Setup the simulation environment by editting Config.m file
-2) Run the main.m function
-/// Explaination of main.m
-object "simulator" carries the information of agents, which is able to:
-	- Simulate the moving behaviour of agents, which return the robots' coordinate
-	- Compute the Voronoi property according to the simulated coordinate
-	- Send control commands to each agent
-All of the above steps are called inside method loop() of the simulator (class Centralized_Controller.m)
+Go to the individuals to generate the results.
+
+- */commons*: the common libraries and the plot script.
+- */simulation_centralized_controller*: the simulation script for the centralized controller. 
+- */simulation_decentrailized_controller*: the simulation script for the decentralized controllers.
+- */experiments*: the experimental data and scripts.
+
 
 
 
