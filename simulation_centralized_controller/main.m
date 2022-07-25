@@ -1,9 +1,6 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Author: Zengjie Zhang
-% Date: July 20, 2022
-
-% Run main.m to perform the simulation.
-% Run plot_results to plot the data.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Nhan Khanh Le, Zengjie Zhang
+% July 25, 2022
 
 clear;
 clc;
