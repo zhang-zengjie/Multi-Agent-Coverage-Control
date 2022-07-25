@@ -2,7 +2,7 @@
 % Author: Zengjie Zhang
 % Date: July 20, 2022
 
-% Run main.m to perform the simulation.
+% Run main.m in individual folders to perform the simulation.
 % Run plot_results to plot the data.
 
 addpath(genpath('./lib'));
