@@ -1,6 +1,6 @@
 %% Simulation Parameters
 
-T = 100;           % Ending time
+T = 40;           % Ending time
 dt = 0.01;          % Time step
 maxIter = T/dt;     % Maximum iteration
 nAgent = 6;         % The number of agents

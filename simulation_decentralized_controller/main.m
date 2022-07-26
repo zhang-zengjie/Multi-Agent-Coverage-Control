@@ -18,7 +18,7 @@ CONTROL_PARAM = ControlParameter(v0, w0, Q, gamma, eps);
 
 %% Type of agent
 % Agent handler
-type = "Simple"; % Controller Type. Please choose "BLF" (safety) or "Simple" (no safety)
+type = "BLF"; % Controller Type. Please choose "BLF" (safety) or "Simple" (no safety)
 for k = 1 : SIM_PARAM.N_AGENT
     if(type == "Simple")   % Simple controller
         agentHandle(k) = UnicycleSimpleCoverageAgent(SIM_PARAM.TIME_STEP, SIM_PARAM.ID_LIST(k), SIM_PARAM.START_POSE(k,:), REGION_CONFIG, CONTROL_PARAM);

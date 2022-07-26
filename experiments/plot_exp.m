@@ -80,7 +80,7 @@ for i = 1:nAgent
 
 end
 
-I = imread('./data/exp4back.jpg'); 
+I = imread('./data/exp4background.jpg'); 
 h = image([0 4000], [2800 0],I); 
 uistack(h,'bottom')
 

@@ -4,7 +4,7 @@
 
 clear;
 clc;
-load('./data/exp.log.3.mat');
+load('./data/exp.log.4.mat');
 
 format long;
 addpath(genpath('./src'));
@@ -86,7 +86,10 @@ CONTROL_PARAM = ControlParameter(v0, w0, Q, gamma, eps);
 c = outlierVertexList(v, c, [0 REGION_CONFIG.REGION_MAX_X], [0 REGION_CONFIG.REGION_MAX_Y]);
 
 
-plot_results;
+% plot_results;
+
+plot_exp;
+
 rmpath(genpath('./src'));
 rmpath(genpath('../commons'));
 

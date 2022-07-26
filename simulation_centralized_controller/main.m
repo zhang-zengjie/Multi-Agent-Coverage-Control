@@ -8,7 +8,7 @@ format long;
 addpath(genpath('./src'));
 addpath(genpath('../commons'));
 
-set_param;
+set_parameter;
 
 
 SIM_PARAM = SimulationParameter(dt, maxIter, nAgent, initPose);
