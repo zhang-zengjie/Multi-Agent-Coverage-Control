@@ -4,13 +4,13 @@
 
 clear;
 clc;
-load('./data/exp.log.2.mat');
+load('./data/exp.log.3.mat');
 
 format long;
 addpath(genpath('./src'));
 addpath(genpath('../commons'));
 
-set_param;
+set_parameter;
 
 botPose = zeros(nAgent, 3, maxIter);
 botZ = zeros(nAgent, 2, maxIter);
@@ -64,12 +64,19 @@ botInput(4, :) = dataTable.Agent_20004.w(1:maxIter);
 botInput(5, :) = dataTable.Agent_20005.w(1:maxIter);
 botInput(6, :) = dataTable.Agent_20006.w(1:maxIter);
 
-botCost = botCost + dataTable.Agent_20001.V(1:maxIter)';
-botCost = botCost + dataTable.Agent_20002.V(1:maxIter)';
-botCost = botCost + dataTable.Agent_20003.V(1:maxIter)';
-botCost = botCost + dataTable.Agent_20004.V(1:maxIter)';
-botCost = botCost + dataTable.Agent_20005.V(1:maxIter)';
-botCost = botCost + dataTable.Agent_20006.V(1:maxIter)';
+tol = 0;
+for k = 1:nAgent
+    Vk = zeros(1, maxIter);
+    for r = 1:maxIter
+        sumHj = 0;
+        for j = 1: max(size(b))
+            hj = (b(j)- (A(j,1)*botZ(k, 1, r) + A(j,2)*botZ(k, 2, r) + tol)); 
+            sumHj = sumHj + 1/hj;
+        end
+    Vk(r) = (botZ(k, :, r) - botCz(k, :, r)) * Q * (botZ(k, :, r) - botCz(k, :, r))' * sumHj/ 2;
+    end
+    botCost = botCost + Vk;
+end
 
 SIM_PARAM = SimulationParameter(dt, maxIter, nAgent, botPose(:, :, 1));
 REGION_CONFIG = RegionParameter(vertexes, [A, b]);

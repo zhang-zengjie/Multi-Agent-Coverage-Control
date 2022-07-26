@@ -10,7 +10,7 @@ format long;
 addpath(genpath('./src'));
 addpath(genpath('../commons'));
 
-set_param;
+set_parameter;
 
 SIM_PARAM = SimulationParameter(dt, maxIter, nAgent, initPose);
 REGION_CONFIG = RegionParameter(vertexes, [A, b]);
@@ -43,18 +43,26 @@ GBS = CommunicationLink(SIM_PARAM.N_AGENT, SIM_PARAM.ID_LIST);
 
 botCost = zeros(1, maxIter);
 for itn = 1: maxIter
-    v = simulation_loop(SIM_PARAM, agentHandle, Logger, VoronoiCom, GBS);
+    [v, terminate] = simulation_loop(SIM_PARAM, agentHandle, Logger, VoronoiCom, GBS);
     botCost(itn) = v;
     fprintf("Decentralized. Iter: %d. L: %f \n", itn, v);
+    if terminate
+        break
+    end
     if ~mod(itn, VISUALIZE_FREQUENCY)
         Logger.live_plot();
     end
 end
 
-botZ = Logger.PoseVM;
-botCz = Logger.CVT;
-botPose = Logger.PoseAgent;
-botInput = Logger.ControlOutput;
+if itn ~= maxIter
+    maxIter = itn-1;
+end
+
+botCost = botCost(:, 1:maxIter);
+botZ = Logger.PoseVM(:, :, 1:maxIter);
+botCz = Logger.CVT(:, :, 1:maxIter);
+botPose = Logger.PoseAgent(:, :, 1:maxIter);
+botInput = Logger.ControlOutput(:, 1:maxIter);
 
 v = Logger.V{maxIter};
 c = Logger.C{maxIter};

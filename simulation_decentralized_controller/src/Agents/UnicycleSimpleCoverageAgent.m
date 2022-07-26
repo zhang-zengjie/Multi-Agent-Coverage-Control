@@ -24,8 +24,11 @@ classdef UnicycleSimpleCoverageAgent < UnicycleCoverageAgent
             % TODO: the Lyapunov function of this control method is not yet
             % properly implemented. Will be modified later. We use the
             % simple Euclidean distance for now
-            H = norm(obj.VMCoord_2d(1:2) - obj.voronoiComputer.CVTCoord_2d);
+            %H = norm(obj.VMCoord_2d(1:2) - obj.voronoiComputer.CVTCoord_2d);
+            IntDomain = struct('type','polygon','x',obj.received_VoronoiPartitionInfo.Vertex2D_List(1: end -1,1)','y',obj.received_VoronoiPartitionInfo.Vertex2D_List(1: end - 1,2)');
+            param = struct('method','gauss','points',6);
+            normSquared = @(x,y) (x - obj.VMCoord_2d(1))^2 + (y - obj.VMCoord_2d(2))^2;
+            H = doubleintegral(normSquared, IntDomain, param);
         end
     end
 end
-

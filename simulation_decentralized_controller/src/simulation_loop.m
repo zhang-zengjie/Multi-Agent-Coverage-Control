@@ -1,6 +1,7 @@
 %% MAIN LOOP *************************************************************
-function sum_v = simulation_loop(SIM_PARAM, agentHandle, Logger, VoronoiCom, GBS)
+function [sum_v, terminate] = simulation_loop(SIM_PARAM, agentHandle, Logger, VoronoiCom, GBS)
     %% Logging instances
+    terminate = 0;
     pose_3d_list = zeros(SIM_PARAM.N_AGENT, 3);
     coord_3d_list = zeros(SIM_PARAM.N_AGENT, 3);
     CVT_2d_List = zeros(SIM_PARAM.N_AGENT, 2);
@@ -37,7 +38,12 @@ function sum_v = simulation_loop(SIM_PARAM, agentHandle, Logger, VoronoiCom, GBS
        %% Move
        if(isAvailable)
            % Barrier Lyapunov based controller 
-           [Vk_List(k), ControlOutput(k)] = agentHandle(k).compute_control_input(report);
+           try
+               [Vk_List(k), ControlOutput(k)] = agentHandle(k).compute_control_input(report);
+           catch
+               fprintf("The robot goes out the region.\n Simulation ends.");
+               terminate = 1;
+           end
            agentHandle(k).move(ControlOutput(k));
        else
            % Pass through so

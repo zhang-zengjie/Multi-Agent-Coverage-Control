@@ -7,7 +7,7 @@
 
 addpath(genpath('./lib'));
 
-t_scale = SIM_PARAM.TIME_STEP*(1:1:SIM_PARAM.MAX_ITER);
+t_scale = SIM_PARAM.TIME_STEP*(1:1:maxIter);
 
 CostColor = [0, 51, 153]/255;
 CostColor_milky = [204, 221, 255]/255;
@@ -41,7 +41,7 @@ ylabel('$V(\mathcal{Z})$','Interpreter','latex', 'FontSize', 9);
 grid on;
 set(gca,'GridLineStyle','-.', 'FontSize', 9);
 xlabel('time (s)','Interpreter','latex', 'FontSize', 10);
-
+xlim([0 maxIter*SIM_PARAM.TIME_STEP]);
 x0=500;
 y0=200;
 width=320;
@@ -61,7 +61,7 @@ ylabel('{\boldmath{$u$}}$_k(t) - ${\boldmath{$\omega$}}$_0$','Interpreter','late
 grid on;
 set(gca,'GridLineStyle','-.', 'FontSize', 9);
 xlabel('time (s)','Interpreter','latex', 'FontSize', 10);
- 
+xlim([0 maxIter*SIM_PARAM.TIME_STEP]);
 x0=500;
 y0=200;
 width=320;
