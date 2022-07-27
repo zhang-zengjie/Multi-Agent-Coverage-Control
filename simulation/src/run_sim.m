@@ -1,4 +1,4 @@
-function [botZ, botCz, botPose, botCost, botInput, v, c] = run_sim(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM)
+function [botZ, botCz, botPose, botCost, botInput, v, c] = run_sim(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, maxIter)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Nhan Khanh Le, Zengjie Zhang
 % July 25, 2022
@@ -29,11 +29,11 @@ function [botZ, botCz, botPose, botCost, botInput, v, c] = run_sim(SIM_PARAM, RE
     % Unified Communication Link for data broadcasting (GBS : global broadcasting service)
     GBS = CommunicationLink(SIM_PARAM.N_AGENT, SIM_PARAM.ID_LIST); 
     
-    botCost = zeros(1, SIM_PARAM.MAX_ITER);
-    for itn = 1: SIM_PARAM.MAX_ITER
+    botCost = zeros(1, maxIter);
+    for itn = 1: maxIter
         [v, terminate] = simulation_loop(SIM_PARAM, agentHandle, Logger, VoronoiCom, GBS);
         botCost(itn) = v;
-        fprintf("Decentralized. Iter: %d. L: %f \n", itn, v);
+        fprintf("Simulation time: %f, coverage function value: %f \n", itn*SIM_PARAM.TIME_STEP, v);
         if terminate
             break
         end
@@ -42,18 +42,18 @@ function [botZ, botCz, botPose, botCost, botInput, v, c] = run_sim(SIM_PARAM, RE
         end
     end
     
-    if itn ~= SIM_PARAM.MAX_ITER
-        SIM_PARAM.MAX_ITER = itn-1;
+    if itn ~= maxIter
+        maxIter = itn-1;
     end
     
-    botCost = botCost(:, 1:SIM_PARAM.MAX_ITER);
-    botZ = Logger.PoseVM(:, :, 1:SIM_PARAM.MAX_ITER);
-    botCz = Logger.CVT(:, :, 1:SIM_PARAM.MAX_ITER);
-    botPose = Logger.PoseAgent(:, :, 1:SIM_PARAM.MAX_ITER);
-    botInput = Logger.ControlOutput(:, 1:SIM_PARAM.MAX_ITER);
+    botCost = botCost(:, 1:maxIter);
+    botZ = Logger.PoseVM(:, :, 1:maxIter);
+    botCz = Logger.CVT(:, :, 1:maxIter);
+    botPose = Logger.PoseAgent(:, :, 1:maxIter);
+    botInput = Logger.ControlOutput(:, 1:maxIter);
     
-    v = Logger.V{SIM_PARAM.MAX_ITER};
-    c = Logger.C{SIM_PARAM.MAX_ITER};
+    v = Logger.V{maxIter};
+    c = Logger.C{maxIter};
     
     
     

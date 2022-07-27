@@ -1,4 +1,4 @@
-function plot_with_image(image_name, REGION_CONFIG, botZ, botCz, v, c)
+function plot_with_image(image_name, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, v, c)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Author: Zengjie Zhang
 % Date: July 20, 2022
@@ -46,7 +46,7 @@ function plot_with_image(image_name, REGION_CONFIG, botZ, botCz, v, c)
         botZY = reshape(botZ(i, 2, end), [1, 1]);
         plot(botZX, botZY,'o','LineWidth',2,'MarkerSize',6, 'Color', Pcolor_dark(i,:));
         
-        circle(botZX, botZY, 200, Pcolor_dark_2(i,:));
+        circle(botZX, botZY, CONTROL_PARAM.V_CONST/CONTROL_PARAM.W_ORBIT, Pcolor_dark_2(i,:));
     
     
         botCzX = reshape(botCz(i, 1, end), [1, 1]);
@@ -56,7 +56,7 @@ function plot_with_image(image_name, REGION_CONFIG, botZ, botCz, v, c)
     end
     
     I = imread(image_name); 
-    h = image([0 4000], [2800 0],I); 
+    h = image([0 REGION_CONFIG.REGION_MAX_X], [REGION_CONFIG.REGION_MAX_Y 0],I); 
     uistack(h,'bottom')
     
     axis([0, max(REGION_CONFIG.BOUNDARIES_VERTEXES(:,1)), 0, max(REGION_CONFIG.BOUNDARIES_VERTEXES(:,2))]);

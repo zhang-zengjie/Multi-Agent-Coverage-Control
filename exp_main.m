@@ -9,15 +9,15 @@ format long;
 addpath(genpath('./experiment'));
 addpath(genpath('./commons'));
 
-[SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, ...
-    botZ, botCz, botPose, botCost, botInput, ...
-        v, c] = load_dat_and_param('exp.log.4.mat');
+
+[tscale, botPose, botZ, botCz, botInput] = retrieve_data('exp_case_1.mat');
+
+[SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botCost, v, c] = load_param(max(size(tscale)), botPose, botZ, botCz);
 
 
-plot_results(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM,...
-    botZ, botCz, botPose, botCost, botInput, v, c);
+plot_results(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, botPose, botCost, botInput, v, c, tscale);
 
-plot_with_image('exp4background.jpg', REGION_CONFIG, botZ, botCz, v, c);
+plot_with_image('exp_case_1_image.jpg', REGION_CONFIG, CONTROL_PARAM, botZ, botCz, v, c);
 
 rmpath(genpath('./experiment'));
 rmpath(genpath('./commons'));
