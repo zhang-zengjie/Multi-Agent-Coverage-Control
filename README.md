@@ -6,7 +6,7 @@
 - *exp_main.m*: the main script to generate experimental results.
 - */src*: the source files.
 - */lib*: the library files. 
-- */data*: the data files (stored at [here](https://1drv.ms/u/s!Aqbmg9Qui1frnQOi9WjntETLWPOU?e=ezhfkb)).
+- */data*: the data files (go to this folder and download the data according to `ReadMe.md`, before running the code).
 
 
 ### Generate figures of the simulation results
