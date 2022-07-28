@@ -1,13 +1,16 @@
-# Optimal Constrained Control of a Multi-Unicycle System
+## Optimal Constrained Control of a Multi-Unicycle System
 
-#### Folder Structure:
+### File Structure:
 
-Go to the individuals to generate the results.
+- *sim_main.m*: the main script to generate simulation results.
+- *exp_main.m*: the main script to generate experimental results.
+- */src*: the source files.
+- */lib*: the library files. 
+- */data*: the data files (data stored in cloud drive).
 
-- */commons*: the common libraries and the plot script.
-- */simulation_centralized_controller*: the simulation script for the centralized controller. 
-- */simulation_decentrailized_controller*: the simulation script for the decentralized controllers.
-- */experiments*: the experimental data and scripts.
+### Generate figures of the simulation results
+
+### Generate figures of the experimental results
 
 
 
