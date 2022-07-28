@@ -2,35 +2,30 @@ clear;
 clc;
 format long;
 
-%% Set simulation configuration
-EndTime = 120;
+addpath(genpath('.'));
 
-% Controller Parameters
-Q = eye(2);      % Positive definite matrix Q
-gamma = 1;       % Control gain gamma
-eps = 2;       % Epsilon of the sigmoi function
-controller = "BLF";
+%% Choose the parameters to set
 
-% Set initial agent poses
-
-
-addpath(genpath('./simulation'));
-addpath(genpath('./commons'));
-
-[~, botPose, ~, ~, ~] = retrieve_data('./experiment/data/exp_case_1.mat');
-initPose = botPose(:,:,1);
-
-
+% set_sim_case_1_param;
+% set_sim_case_2_param;
+% set_sim_case_3_param;
+set_sim_large_param;
+% set_sim_compare_conv_param;
+% set_sim_compare_proposed_param;
+% set_sim_Q_10_param;
+% set_sim_gamma_10_param;
+% set_sim_eps_10_param;
 
 %% Run the simulation
 
+SIM_PARAM = SimulationParameter(nAgent, dt, dt:dt:EndTime, initPose);
+[vertexes, A, b] = gen_rect(region_width, region_height);
+REGION_CONFIG = RegionParameter(vertexes, [A b]);
+CONTROL_PARAM = ControlParameter(v0, w0, Q, gamma, eps, controller);
+
+[botZ, botCz, botPose, botCost, botInput, v, c] = run_sim(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM);
 
 
-% Go to './src/set_sim_parameter.m' to change more simulation functions
-[SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, t_scale] = set_sim_parameter(Q, gamma, eps, initPose, controller, EndTime);
-[botZ, botCz, botPose, botCost, botInput, v, c] = run_sim(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, max(size(t_scale)));
-plot_results(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, botPose, botCost, botInput, v, c, t_scale);
+plot_results(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, botPose, botCost, botInput, v, c, plot_size);
 
-
-rmpath(genpath('./simulation'));
-rmpath(genpath('./commons'));
+rmpath(genpath('.'));

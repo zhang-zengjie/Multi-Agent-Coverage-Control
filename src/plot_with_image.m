@@ -1,4 +1,4 @@
-function plot_with_image(image_name, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, v, c)
+function plot_with_image(image_name, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, v, c, plot_width)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Author: Zengjie Zhang
 % Date: July 20, 2022
@@ -65,12 +65,7 @@ function plot_with_image(image_name, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, 
     grid on;
     set(gca,'GridLineStyle','-.', 'FontSize', 9);
     
-    x0=500;
-    y0=200;
-    width=320;
-    height=240;
-    
-    set(gcf,'position',[x0,y0,width,height]);
+    set(gcf,'innerposition',[500, 200, plot_width, plot_width*2/3]);
     hold off;
     
     

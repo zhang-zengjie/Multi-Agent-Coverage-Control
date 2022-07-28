@@ -1,28 +1,26 @@
-function [SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botCost, v, c] = load_param(maxIter, botPose, botZ, botCz)
+function [SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botCost, v, c] = load_param(tscale, botPose, botZ, botCz)
 
+    maxIter = max(size(tscale));
     botCost = zeros(1, maxIter);
     
     %% Simulation Parameters
     nAgent = 6;
-    dt = 0.05;          % Time step
     w0 = 0.8.*ones(1,nAgent);       % Desired orbital velocity (rad/s) 
     v0 = 0.16.*ones(1,nAgent);        % Constant heading velocity (m/s)
     
     %% Region Configuration
-    Width = 4;
-    Height = 2.8;
-    A = [-1 , 0; 1 , 0; 0 , 1; 0 , -1];
-    b = [0, Width, Height, 0]';
-    vertexes = [0, 0; 0, Height; Width, Height; Width, 0; 0, 0];
+    region_width = 4;
+    region_height = 2.8;
     
     %% Controller parameters
     Q = eye(2);      % Positive definite matrix Q
     gamma = 1;       % Control gain gamma
     eps = 2;       % Epsilon of the sigmoi function
     
-    SIM_PARAM = SimulationParameter(dt, maxIter, nAgent, botPose(:,:,1));
-    REGION_CONFIG = RegionParameter(vertexes, [A, b]);
-    CONTROL_PARAM = ControlParameter(v0, w0, Q, gamma, eps);
+    SIM_PARAM = SimulationParameter(nAgent, 0, tscale, botPose(:, :, 1));
+    [vertexes, A, b] = gen_rect(region_width, region_height);
+    REGION_CONFIG = RegionParameter(vertexes, [A b]);
+    CONTROL_PARAM = ControlParameter(v0, w0, Q, gamma, eps, "BLF");
     
     tol = 0;
     for k = 1:nAgent

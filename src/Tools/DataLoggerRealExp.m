@@ -7,8 +7,9 @@ classdef DataLoggerRealExp < DataLogger
     end
     
     methods
-        function excTime = get_time_axis(obj)
-            excTime = (obj.ExcTime - obj.ExcTime(1)) / 1e3;
+        function excTime = get_time_axis(obj, clip)
+            t_ = obj.ExcTime(clip(1):clip(2));
+            excTime = (t_' - t_(1)) / 1e3;
         end
         
         function set_time_axis(obj, timeAxis)

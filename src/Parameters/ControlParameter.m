@@ -1,11 +1,11 @@
 classdef ControlParameter < handle
      properties
-        V_CONST = 40;
-        W_ORBIT = 0.8;
-        Q2x2 = 5 * eye(2);
-        GAMMA = 3;
-        EPS_SIGMOID = 5;
-        W_LIMIT = 2;
+        V_CONST;
+        W_ORBIT;
+        Q2x2;
+        GAMMA;
+        EPS_SIGMOID;
+        W_LIMIT;
         CONTROLLER = "BLF";
      end
     
@@ -13,7 +13,7 @@ classdef ControlParameter < handle
         function obj = ControlParameter(vConst, wOrbit, Q, gamma, eps, type)
             obj.V_CONST = vConst;
             obj.W_ORBIT = wOrbit;
-            obj.W_LIMIT = 1.0;
+            obj.W_LIMIT = 2;
             obj.Q2x2 = Q;
             obj.GAMMA = gamma;
             obj.EPS_SIGMOID = eps;

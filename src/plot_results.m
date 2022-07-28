@@ -1,4 +1,4 @@
-function plot_results(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, botPose, botCost, botInput, v, c, t_scale_full)
+function plot_results(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, botPose, botCost, botInput, v, c, plot_width)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Author: Zengjie Zhang
 % Date: July 20, 2022
@@ -7,8 +7,8 @@ function plot_results(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, botP
 % Run plot_results to plot the data.
 
 sz = size(botPose);
-
-t_scale = t_scale_full(1: sz(3));
+maxIter = sz(3);
+t_scale = SIM_PARAM.TIME_SCALE(1: maxIter);
 
 CostColor = [0, 51, 153]/255;
 CostColor_milky = [204, 221, 255]/255;
@@ -37,18 +37,14 @@ figure();
 
 hold on;
 plot(t_scale, botCost,'LineWidth',1.5,'LineStyle','-.','Color', CostColor);
-fill([t_scale, SIM_PARAM.SIM_TIME,0], [botCost,0,0], CostColor_milky);
+fill([t_scale, t_scale(end),0], [botCost,0,0], CostColor_milky);
 ylabel('$V(\mathcal{Z})$','Interpreter','latex', 'FontSize', 9);
 grid on;
 set(gca,'GridLineStyle','-.', 'FontSize', 9);
 xlabel('time (s)','Interpreter','latex', 'FontSize', 10);
 xlim([0 t_scale(end)]);
-x0=500;
-y0=200;
-width=320;
-height=160;
 
-set(gcf,'position',[x0,y0,width,height]);
+set(gcf,'position',[500, 200, plot_width, plot_width*0.4]);
 hold off;
 
 %% Plot the input
@@ -57,18 +53,16 @@ figure();
 hold on;
 for i = 1:SIM_PARAM.N_AGENT
     plot(t_scale, botInput(i,:)-CONTROL_PARAM.W_ORBIT(i),'LineWidth',1.5,'LineStyle','-.','Color', Pcolor(i,:));
+    %plot(t_scale, botInput(i,:),'LineWidth',1.5,'LineStyle','-.','Color', Pcolor(i,:));
 end
 ylabel('{\boldmath{$u$}}$_k(t) - ${\boldmath{$\omega$}}$_0$','Interpreter','latex', 'FontSize', 9);
 grid on;
 set(gca,'GridLineStyle','-.', 'FontSize', 9);
 xlabel('time (s)','Interpreter','latex', 'FontSize', 10);
 xlim([0 t_scale(end)]);
-x0=500;
-y0=200;
-width=320;
-height=160;
+ ylim([-max(CONTROL_PARAM.W_ORBIT)*CONTROL_PARAM.GAMMA max(CONTROL_PARAM.W_ORBIT)*CONTROL_PARAM.GAMMA]);
 
-set(gcf,'position',[x0,y0,width,height]);
+set(gcf,'position',[500, 200, plot_width, plot_width*0.4]);
 hold off;
 
 %% Plot the locus
@@ -87,8 +81,8 @@ for i = 1:SIM_PARAM.N_AGENT
     botPoseX = reshape(botPose(i, 1, 1), [1, 1]);
     botPoseY = reshape(botPose(i, 2, 1), [1, 1]);
     plot(botPoseX, botPoseY,'x','LineWidth',1,'MarkerSize',10, 'Color', Pcolor(i,:));
-    botPoseX = reshape(botPose(i, 1, :), [1, SIM_PARAM.MAX_ITER]);
-    botPoseY = reshape(botPose(i, 2, :), [1, SIM_PARAM.MAX_ITER]);
+    botPoseX = reshape(botPose(i, 1, :), [1, maxIter]);
+    botPoseY = reshape(botPose(i, 2, :), [1, maxIter]);
     plot(botPoseX, botPoseY,'LineWidth',1,'LineStyle','-', 'Color', Pcolor(i,:));
     botPoseX = reshape(botPose(i, 1, end), [1, 1]);
     botPoseY = reshape(botPose(i, 2, end), [1, 1]);
@@ -97,8 +91,8 @@ for i = 1:SIM_PARAM.N_AGENT
     botZX = reshape(botZ(i, 1, 1), [1, 1]);
     botZY = reshape(botZ(i, 2, 1), [1, 1]);
     plot(botZX, botZY,'x', 'LineWidth',2,'MarkerSize',10, 'Color', Pcolor_dark(i,:));
-    botZX = reshape(botZ(i, 1, :), [1, SIM_PARAM.MAX_ITER]);
-    botZY = reshape(botZ(i, 2, :), [1, SIM_PARAM.MAX_ITER]);
+    botZX = reshape(botZ(i, 1, :), [1, maxIter]);
+    botZY = reshape(botZ(i, 2, :), [1, maxIter]);
     plot(botZX, botZY, 'LineWidth',2,'LineStyle',':', 'Color', Pcolor_dark(i,:));
     botZX = reshape(botZ(i, 1, end), [1, 1]);
     botZY = reshape(botZ(i, 2, end), [1, 1]);
@@ -107,8 +101,8 @@ for i = 1:SIM_PARAM.N_AGENT
     botCzX = reshape(botCz(i, 1, 1), [1, 1]);
     botCzY = reshape(botCz(i, 2, 1), [1, 1]);
     plot(botCzX, botCzY,'x', 'LineWidth',2,'MarkerSize',10, 'Color', Pcolor_dark_2(i,:));
-    botCzX = reshape(botCz(i, 1, :), [1, SIM_PARAM.MAX_ITER]);
-    botCzY = reshape(botCz(i, 2, :), [1, SIM_PARAM.MAX_ITER]);
+    botCzX = reshape(botCz(i, 1, :), [1, maxIter]);
+    botCzY = reshape(botCz(i, 2, :), [1, maxIter]);
     plot(botCzX, botCzY, 'LineWidth',2, 'LineStyle','-.', 'Color', Pcolor_dark_2(i,:));
     botCzX = reshape(botCz(i, 1, end), [1, 1]);
     botCzY = reshape(botCz(i, 2, end), [1, 1]);
@@ -120,11 +114,6 @@ ag = gca();
 grid on;
 set(gca,'GridLineStyle','-.', 'FontSize', 9);
 
-x0=500;
-y0=200;
-width=320;
-height=220;
-
-set(gcf,'innerposition',[x0,y0,width,height]);
+set(gcf,'innerposition',[500, 200, plot_width, plot_width*2/3]);
 hold off;
 

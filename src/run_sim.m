@@ -1,4 +1,4 @@
-function [botZ, botCz, botPose, botCost, botInput, v, c] = run_sim(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, maxIter)
+function [botZ, botCz, botPose, botCost, botInput, v, c] = run_sim(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Nhan Khanh Le, Zengjie Zhang
 % July 25, 2022
@@ -29,6 +29,8 @@ function [botZ, botCz, botPose, botCost, botInput, v, c] = run_sim(SIM_PARAM, RE
     % Unified Communication Link for data broadcasting (GBS : global broadcasting service)
     GBS = CommunicationLink(SIM_PARAM.N_AGENT, SIM_PARAM.ID_LIST); 
     
+    maxIter = SIM_PARAM.MAX_ITER;
+
     botCost = zeros(1, maxIter);
     for itn = 1: maxIter
         [v, terminate] = simulation_loop(SIM_PARAM, agentHandle, Logger, VoronoiCom, GBS);

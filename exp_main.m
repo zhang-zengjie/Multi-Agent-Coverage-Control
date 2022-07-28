@@ -4,21 +4,22 @@
 
 clear;
 clc;
-
 format long;
-addpath(genpath('./experiment'));
-addpath(genpath('./commons'));
+
+%% Choose which case to run
+run_which_case = '3';
 
 
-[tscale, botPose, botZ, botCz, botInput] = retrieve_data('exp_case_1.mat');
+addpath(genpath('.'));
 
-[SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botCost, v, c] = load_param(max(size(tscale)), botPose, botZ, botCz);
+%% Load experimental data
+[tscale, botPose, botZ, botCz, botInput] = retrieve_data(strcat('exp_case_', run_which_case, '.mat'));
 
+%% Load experimental parameters
+[SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botCost, v, c] = load_param(tscale, botPose, botZ, botCz);
 
-plot_results(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, botPose, botCost, botInput, v, c, tscale);
+%% Plot the results
+plot_results(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, botPose, botCost, botInput, v, c, 320);
+plot_with_image(strcat('exp_case_', run_which_case, '_image.jpg'), REGION_CONFIG, CONTROL_PARAM, botZ, botCz, v, c, 320);
 
-plot_with_image('exp_case_1_image.jpg', REGION_CONFIG, CONTROL_PARAM, botZ, botCz, v, c);
-
-rmpath(genpath('./experiment'));
-rmpath(genpath('./commons'));
-
+rmpath(genpath('.'));

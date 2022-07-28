@@ -322,13 +322,19 @@ classdef DataLogger < handle
         end
         
         
-        function [botPose, botZ, botCz, botCost, botInput] = get_logged_data(obj)
-            curDataArr = 1:obj.curCnt-1;
+        function [botPose, botZ, botCz, botCost, botInput] = get_logged_data(obj, clip)
+            % curDataArr = clip(1):obj.curCnt-1-clip(2);
+            curDataArr = clip(1):clip(2);
             botPose = obj.PoseAgent(:,:,curDataArr);
             botZ = obj.PoseVM(:,:,curDataArr);
             botCz = obj.CVT(:,:, curDataArr);
             botCost = obj.V_BLF(:, curDataArr);
             botInput = obj.ControlOutput(:, curDataArr);
+
+            botZ = botZ*0.001;
+            botPose(:,1:2,:) = botPose(:,1:2,:)*0.001;
+            botCz = botCz*0.001;
+            botCost= botCost*0.001^2;
         end
             
         
