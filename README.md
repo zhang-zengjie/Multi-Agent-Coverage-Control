@@ -6,10 +6,8 @@
 - *exp_main.m*: the main script to generate experimental results.
 - */src*: the source files.
 - */lib*: the library files. 
-- */data*: the data files (stored at ![here](https://1drv.ms/u/s!Aqbmg9Qui1frnQOi9WjntETLWPOU?e=ezhfkb)).
+- */data*: the data files (stored at [here](https://1drv.ms/u/s!Aqbmg9Qui1frnQOi9WjntETLWPOU?e=ezhfkb)).
 
-
-<iframe src="https://onedrive.live.com/embed?cid=EB578B2ED483E6A6&resid=EB578B2ED483E6A6%213715&authkey=AMZQzLBCmDYLZXM" width="165" height="128" frameborder="0" scrolling="no"></iframe>
 
 ### Generate figures of the simulation results
 
