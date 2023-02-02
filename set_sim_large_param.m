@@ -2,9 +2,9 @@
 % Set simulation configuration
 dt = 0.05;          % Time step
 EndTime = 100;
-nAgent = 24;         % The number of agents
-w0 = 0.8.*ones(1,nAgent);    % Desired orbital velocity (rad/s) 
-v0 = 40.*ones(1,nAgent);     % Constant heading velocity (m/s)
+nAgent = 100;         % The number of agents
+w0 = 2.*ones(1,nAgent);    % Desired orbital velocity (rad/s) 
+v0 = 10.*ones(1,nAgent);     % Constant heading velocity (m/s)
 
 % Region Configuration
 region_width = 800;
