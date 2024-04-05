@@ -1,4 +1,11 @@
-## Optimal Constrained Control of a Multi-Unicycle System
+## Optimal Coverage Control of Multiple Constant-Speed Unicycle Robots (CSUR)
+
+The experimental studies of a decentralized optimal coverage controller for multi-agent systems with multiple constant-speed unicycle robots (CSURs).
+
+This project is associated with the publication [Distributed Coverage Control of Constrained Constant-Speed Unicycle Multi-Agent Systems](https://ieeexplore.ieee.org/abstract/document/10477934).
+
+See a Youtube [video](https://www.youtube.com/watch?v=XUEx6HEZPAM) how this project performs.
+
 
 ### File Structure:
 
