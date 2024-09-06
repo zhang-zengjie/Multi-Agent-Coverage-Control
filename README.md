@@ -4,7 +4,7 @@
 
 The experimental studies of a decentralized optimal coverage controller for multi-agent systems with multiple constant-speed unicycle robots (CSURs).
 
-Refer to our [GitHub repository](https://github.com/zhang-zengjie/csur-converage-control) for the up-to-date programs.
+Refer to our [GitHub repository](https://github.com/zhang-zengjie/csur-coverage-control) for the up-to-date programs.
 
 ## Introduction
 
