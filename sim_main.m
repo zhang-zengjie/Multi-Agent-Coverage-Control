@@ -9,7 +9,7 @@ addpath(genpath('.'));
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Select a parameter setting command for the corresponding simuation study
 
-set_sim_compare_conv_param;
+set_sim_case_1_param;
 
 %     | command name                     | case number | case name           | configuration |
 %     | -------------------------------- | -- | ---------------------------- | ------------- |

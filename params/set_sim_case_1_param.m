@@ -18,6 +18,5 @@ controller = "BLF";
 plot_size = 320;
 
 % Set initial agent poses
-addpath('src/Tools', 'src/Parameters', 'data/experiment');
 [~, botPose, ~, ~, ~] = retrieve_data('exp_case_1.mat');
 initPose = botPose(:,:,1);
