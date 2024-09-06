@@ -1,6 +1,6 @@
 # Optimal Coverage Control of Multiple Constant-Speed Unicycle Robots (CSUR)
 
-**Author:** *Nhan Khanh Le* (nhankhanh.le@tum.de) and *Zengjie Zhang* (z.zhang3@tue.nl).
+**Author:** ***Nhan Khanh Le*** (nhankhanh.le@tum.de) and ***Zengjie Zhang*** (z.zhang3@tue.nl).
 
 The experimental studies of a decentralized optimal coverage controller for multi-agent systems with multiple constant-speed unicycle robots (CSURs).
 
