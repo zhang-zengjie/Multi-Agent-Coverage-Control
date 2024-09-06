@@ -4,14 +4,13 @@
 
 addpath(genpath('.'));
 
-% Choose which case to run
-% case_num_in_str = '1';
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Choose which case to run, 1, 2, or 3
+case_num_in_str = '1';
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Load experimental data
-[tscale, botPose, botZ, botCz, botInput] = retrieve_data(strcat('exp_case_', case_num_in_str, '.mat'));
-
-% Load experimental parameters
-[SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botCost, v, c] = load_param(tscale, botPose, botZ, botCz);
+[tscale, botPose, botZ, botCz, botInput] = retrieve_data(strcat('exp_case_', case_num_in_str, '.mat'));     % Load experimental data
+[SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botCost, v, c] = load_param(tscale, botPose, botZ, botCz);        % Load experimental parameters
 
 % Plot the results
 plot_results(SIM_PARAM, REGION_CONFIG, CONTROL_PARAM, botZ, botCz, botPose, botCost, botInput, v, c, 320);
